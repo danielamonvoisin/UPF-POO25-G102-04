@@ -35,7 +35,7 @@ Once I entered git reset HEAD README.md after adding the README.md file:
 Unstaged changes after reset:
 M       README.md
 M       answers.txt
-So once I commited: 
+So once I commited only the answers.txt was commited and no the modified line I added in the readme file because it wasn't staged. 
 
 
 
