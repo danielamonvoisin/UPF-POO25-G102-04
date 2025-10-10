@@ -1,0 +1,13 @@
+4.7.1 Q1: Git shows that README.md is not yet staged.
+4.7.2 Q2: The file now is in the staging area and w can commit it
+4.7.3 Q3: It appears the changes I made the new text,and the working directory has changes not staged for commit.
+--- a/README.md
++++ b/README.md
+@@ -0,0 +1 @@
++Hello World !
+\ No newline at end of file
+
+
+
+
+
