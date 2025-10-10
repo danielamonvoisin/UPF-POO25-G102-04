@@ -1,5 +1,10 @@
 4.7.1 Q1: Git shows that README.md is not yet staged.
+
 4.7.2 Q2: The file now is in the staging area and w can commit it
+Changes to be committed:
+  modified:   README.md
+  modified:   answers.txt
+
 4.7.3 Q3: It appears the changes I made the new text,and the working directory has changes not staged for commit.
 --- a/README.md
 +++ b/README.md
@@ -7,7 +12,30 @@
 +Hello World !
 \ No newline at end of file
 
+4.7.4 Q4: We see this output which informs us how the commit was done. 
+[main 5528161] Initial commit
+ 2 files changed, 14 insertions(+)
 
+4.7.5 Q5: We have two commits because previously to this activity I did one commit to check it worked! And the first 7 digits are 6b25f80. 
+
+4.7.8 Q6: I modified the frist line adding a text and once I commited and enter git show HEAD: 
+diff --git a/README.md b/README.md
+index 1c8a3a1..077034e 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1 @@
+-Hello World !
+\ No newline at end of file
++Hello World ! (line modified)
+
+4.7.10 Q7: Here I notice an error that I did and it was that the git reset wasn't working because I didnt stages the modified line I wrote, and this command only affects the staging area!
+But since I hadn’t added the file to the staging area yet, Git had nothing to reset so it did nothing, and that's why the new line was commited. 
+So the commit named "Correct Check Reset" was the good use of this command not the previous one!. 
+Once I entered git reset HEAD README.md after adding the README.md file: 
+Unstaged changes after reset:
+M       README.md
+M       answers.txt
+So once I commited: 
 
 
 
