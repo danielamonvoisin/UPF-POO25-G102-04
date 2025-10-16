@@ -29,7 +29,7 @@ public class Vector {
 
     public Vector add(Vector v) {
         if (this.dimension != v.getDimension()){
-            System.out.println("Vectors must be of the same dimension to add.");
+            throw new IllegalArgumentException("Vectors must be of the same dimension to add.");
         }
         double[] vvector = v.getNumbers();
         double[] result = new double[this.dimension]; 
@@ -41,7 +41,7 @@ public class Vector {
     
      public Vector subtract(Vector v) {
         if (this.dimension != v.getDimension()){
-            System.out.println("Vectors must be of the same dimension to add.");
+            throw new IllegalArgumentException("Vectors must be of the same dimension to subtract.");
         }
         double[] vvector = v.getNumbers();
         double[] result = new double[this.dimension]; 
@@ -53,7 +53,7 @@ public class Vector {
 
     public Vector MultiplyNumbers (Vector v){
         if (this.dimension != v.getDimension()){
-            System.out.println("Vectors must be of the same dimension to add.");
+            throw new IllegalArgumentException("Vectors must be of the same dimension to multiply.");
         }
         double[] vvector = v.getNumbers();
         double[] result = new double[this.dimension];
@@ -65,14 +65,17 @@ public class Vector {
 
     public Vector DivisionNumbers (Vector v){
         if (this.dimension != v.getDimension()){
-            System.out.println("Vectors must be of the same dimension to add.");
+            throw new IllegalArgumentException("Vectors must be of the same dimension to divide.");
         }
         double[] vvector = v.getNumbers();
         double[] result = new double[this.dimension];
         for (int i = 0; i < this.dimension; i++){
-            result[i] = this.numbers[i] / vvector[i]; 
+            if (vvector[i] == 0) {
+                throw new ArithmeticException("Division by zero at index " + i);
             }
-            return new Vector(result); 
+            result[i] = this.numbers[i] / vvector[i]; 
+        }
+        return new Vector(result); 
     }
 
     public Vector MultiplyScalar(double a){
@@ -84,6 +87,9 @@ public class Vector {
     }
 
     public Vector DivideScalar(double a){
+        if (a == 0) {
+            throw new IllegalArgumentException("Division by zero is not allowed.");
+        }
         double[] result = new double[this.dimension];
         for (int i = 0; i < this.dimension; i++){
             result[i] = this.numbers[i] / a; 
@@ -101,7 +107,7 @@ public class Vector {
 
     public double DotProduct(Vector v){
         if (this.dimension != v.getDimension()){
-            System.out.println("Vectors must be of the same dimension to compute the dot product.");
+            throw new IllegalArgumentException("Vectors must be of the same dimension to compute the dot product.");
         }
         double result = 0;
         for (int i = 0; i < this.dimension; i++) {
