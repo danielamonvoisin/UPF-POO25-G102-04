@@ -92,28 +92,30 @@ public class Vector {
     }
 
     public Vector SquareRoot(){
+        double[] result = new double[this.dimension];
         for (int i = 0; i < this.dimension; i++){
-            Math.sqrt(this.numbers[i]); 
-            }
-        return new Vector(this.numbers); 
+            result[i] = Math.sqrt(this.numbers[i]);
+        }
+        return new Vector(result);
     }
 
     public double DotProduct(Vector v){
-        
-
+        if (this.dimension != v.getDimension()){
+            System.out.println("Vectors must be of the same dimension to compute the dot product.");
+        }
+        double result = 0;
+        for (int i = 0; i < this.dimension; i++) {
+            result += this.numbers[i] * v.numbers[i];
+        }
+        return result;
     }
 
     public double NormVector(){
-
+        return Math.sqrt(this.DotProduct(this));
     }
-
 
     public String convertString(){
         String s = Arrays.toString(this.numbers);
         return s; 
     }
-
-
 }
-
-
