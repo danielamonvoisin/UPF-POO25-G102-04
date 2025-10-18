@@ -1,0 +1,91 @@
+
+
+DOCUMENTATION OF THE PROCESS: 
+
+The goal of this lab was to implement the two Java classes prescribed (Vector class and Record class) that could handle mathematical operations and data representation:
+
+- Vector Class: A mathematical vector implementation which has to contain several vector operations, the typical ones.  
+
+- Record Class: A simple data structure to represent 2D coordinate points.
+
+So the programm needed to have vector creation and manipulation such as addition, subtraction, scalar/vector multiplication and division. Mathematical operations  
+such as dot product, norm calculation and square root.  And in each of the operation we had to see if there could be the possibility of proper error handling for 
+invalid operations. And lastly string representation for both vector and record objects, becuase if we do not have this methdod when printing the numbers of the vector, 
+the memory address of the vector would be printed instead. 
+
+Methods implemented in each class: 
+
+- Vector class: 
+
+Constructors:
+
+    Vector(double[] numbers) - from an array we can construct the vector. 
+
+    Vector(int dimension, double val) - given a dimension and a value we can as¡lso create the vector. 
+
+Mathematical Operations:
+
+    add(Vector v), subtract(Vector v) --> common operations. 
+
+    MultiplyNumbers(Vector v), DivisionNumbers(Vector v) --> so we have to pass as an argument another vector in order to perform the operation between two vectors of the same dimension. 
+
+    MultiplyScalar(double a), DivideScalar(double a) --> no need to pass a vector as an argument, only a scalar. 
+
+    DotProduct(Vector v) 
+    NormVector(), SquareRoot() --> operations that use the vector class which we called the method. 
+
+Useful Methods:
+
+    getDimension(), getNumbers(), convertString() -> at the time of pronting the vector or knowing the dimension, these methods are essential. 
+
+- Vector class: 
+
+Core Methods:
+
+    - getX(), getY() --> methods to access the value. 
+
+    -  convertString() - for string representation. 
+
+
+Possible Alternatove Solutions that were discussed: 
+
+
+    - NormVector method: firstly we had thought about this implementation: 
+
+    public double NormVector(){
+        double squareSum = 0; 
+        for(int i = 0; i < this.dimension; i++){
+            squareSum += this.numbers[i] *  this.numbers[i]; 
+        }
+        squareSum = Math.sqrt(squareSum); 
+        return squareSum; 
+    }
+
+    But then we saw that there was an easier structure, the one we have now, because reusing the Dot Product function, which allows us to calculate the power 2 of each of 
+    the vector components, is much simpler to code it in the NormVector method, calling this method with the vector we called it in the main funcion, that is why we put "this"
+    and as an argument we put the same vector class, that is why again we put "this" as the argument. 
+    So in this decision we applied the Code Reuse object-oriented programming concept tha really helped us to simpler the code. 
+
+
+    - SquareRoot method: firstly we had thought about this implementation: 
+
+    public Vector SquareRoot(){
+        Vector vector1 = new Vector(this.dimension, 0); 
+        for (int i = 0; i < this.dimension; i++){
+            vector1.numbers[i] = Math.sqrt(this.numbers[i]); 
+            }
+        return vector1; 
+    }
+
+    Then afterwards we thought that we didnt have the function yet, and we design it in a different way, which is the same thinking at the end. 
+
+
+Implementation Challenges
+
+At the end of the code, we have to say that we didn't test every method individually in the test record class once we finished each one of them, but luckily once we built the test they all worked out !!!
+So that was really motivating for us, but for the next lab we will test every method individually once we finish one by one, so that then the tests are already done at the same time we finish the methods. 
+
+One difficulty that we have had was when using the first constructor of the vector class, we passed as an argument the arrya but directly inside the parenthesis, which is compeleteky wrong, because that array of 
+numbers wasn't initialized ! So we had to create the three arrays before delcaring them as double type and then, the names of the arrays created was what we passed as arguments. 
+
+
