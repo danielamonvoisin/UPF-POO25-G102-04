@@ -1,0 +1,17 @@
+In the public Vector method we thought of: 
+    if (data.isEmpty()) { //se nos ha ocurrido después porque hay que checkear si el dataset no tiene ningún record
+        return new Vector(dim, 0.0);
+    }
+
+In that same method:
+double meanX = sumX.DivideScalar((double)data.size()); //because data.size returns an int, so we had to convert the variable to a double so that the division turns out as a double
+return new Vector(new double[]{meanX});
+
+But later, we thought of a cleaner version in which we could directly return the meanVector using DivideScalar (reuse POO).
+
+We have effitiently converted these lines into one: 
+    Vector variance = sumSquaredDifferences.DivideScalar(data.size());
+    return variance.SquareRoot();
+
+With this as the result:
+    return sumSquaredDifferences.DivideScalar(data.size()).SquareRoot();   
