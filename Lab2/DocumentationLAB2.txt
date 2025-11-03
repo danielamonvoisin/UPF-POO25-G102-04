@@ -15,3 +15,19 @@ We have effitiently converted these lines into one:
 
 With this as the result:
     return sumSquaredDifferences.DivideScalar(data.size()).SquareRoot();   
+
+
+
+We changed an attribute in the Record class, instead of double x as the input we define it as a vector input: 
+
+Before: 
+public class Record {
+    private double x; // this is how we had it before (lab1)
+    private double y;
+}
+
+Later: 
+public class Record {
+    private Vector input;    // Multi-dimensional input vector (lab 2)
+    private double output; 
+}

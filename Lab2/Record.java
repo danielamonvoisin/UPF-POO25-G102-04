@@ -1,23 +1,23 @@
 package Lab2;
 
 public class Record {
-    private double x;
-    private double y;
+    private Vector input;    // Multi-dimensional input vector
+    private double output;   
 
-    public Record(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Record(Vector input, double output) {
+        this.input = input;
+        this.output = output;
     }
 
-    public double getX() {
-        return this.x;
+    public Vector getInput() {
+        return this.input;
     }
 
-    public double getY() {
-        return this.y;
+    public double getOutput() {
+        return this.output;
     }
 
     public String convertString() {
-        return "(" + x + ", " + y + ")";
+        return "(Input: " + input.convertString() + ", Output: " + output + ")";
     }
 }
