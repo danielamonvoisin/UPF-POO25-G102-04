@@ -1,6 +1,7 @@
 package Lab2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Dataset {
@@ -89,6 +90,98 @@ public class Dataset {
         double variance = sumSquaredDifferences / data.size();
         return Math.sqrt(variance);
     }
+
+    //NOW, WE ARE GOING TO IMPLEMENT NORMALIZED DATASET
+
+    public Vector minInput() {
+        if (data.isEmpty()) {
+            return new Vector(dim, 0.0);
+        }
+        
+        double[] minValues = new double[dim];
+        Arrays.fill(minValues, Double.MAX_VALUE);
+        
+        for (Record record : data) {
+            Vector input = record.getInput();
+            double[] inputValues = input.getNumbers();
+            for (int i = 0; i < dim; i++) {
+                if (inputValues[i] < minValues[i]) {
+                    minValues[i] = inputValues[i];
+                }
+            }
+        }
+        
+        return new Vector(minValues);
+    }
+
+    public Vector maxInput() {
+        if (data.isEmpty()) {
+            return new Vector(dim, 0.0);
+        }
+        
+        double[] maxValues = new double[dim];
+        Arrays.fill(maxValues, Double.MIN_VALUE);
+        
+        for (Record record : data) {
+            Vector input = record.getInput();
+            double[] inputValues = input.getNumbers();
+            for (int i = 0; i < dim; i++) {
+                if (inputValues[i] > maxValues[i]) {
+                    maxValues[i] = inputValues[i];
+                }
+            }
+        }
+        
+        return new Vector(maxValues);
+    }
+
+    public double minOutput() {
+        if (data.isEmpty()) {
+            return 0.0;
+        }
+        
+        double min = Double.MAX_VALUE;
+        for (Record record : data) {
+            if (record.getOutput() < min) {
+                min = record.getOutput();
+            }
+        }
+        return min;
+    }
+
+    public double maxOutput() {
+        if (data.isEmpty()) {
+            return 0.0;
+        }
+        
+        double max = Double.MIN_VALUE;
+        for (Record record : data) {
+            if (record.getOutput() > max) {
+                max = record.getOutput();
+            }
+        }
+        return max;
+    }
+
+    public NormalizedDataset normalize() {
+        Vector minIn = this.minInput();
+        Vector maxIn = this.maxInput();
+        double minOut = this.minOutput();
+        double maxOut = this.maxOutput();
+        
+        NormalizedDataset normalizedDb = new NormalizedDataset(
+            this.dim, minIn, maxIn, minOut, maxOut);
+        
+        for (Record record : this.data) {
+            Record transformedRecord = normalizedDb.transform(record);
+            normalizedDb.addRecord(transformedRecord);
+        }
+        
+        return normalizedDb;
+    }
+
+    //END OF NORMALIZED DATASET
+
 
     public StandardizedDataset standardize() {
         Vector µin = this.meanInput();    

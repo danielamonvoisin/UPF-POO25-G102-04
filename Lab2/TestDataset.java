@@ -38,7 +38,24 @@ public class TestDataset {
         System.out.println("Transform Test:");
         System.out.println("Original Record: " + newRecord.convertString());
         System.out.println("Transformed Record: " + transformed.convertString());
+
+
+        System.out.println("=== Testing Normalization ==="); // test normalization
+        NormalizedDataset normalized = dataset.normalize();
+        System.out.println("Normalized Dataset:");
+        System.out.println(normalized);
+        System.out.println("Mean Input (after normalization): " + normalized.meanInput().convertString());
+        System.out.println("Std Input (after normalization): " + normalized.stdInput().convertString());
+        System.out.println("Mean Output (after normalization): " + normalized.meanOutput());
+        System.out.println("Std Output (after normalization): " + normalized.stdOutput());
+        System.out.println("Min Input: " + dataset.minInput().convertString());
+        System.out.println("Max Input: " + dataset.maxInput().convertString());
+        System.out.println("Min Output: " + dataset.minOutput());
+        System.out.println("Max Output: " + dataset.maxOutput());
+
+        Record normalizedNewRecord = normalized.transform(newRecord); // test transforming a new record using normalization parameters
+        System.out.println("Normalization Transform Test:");
+        System.out.println("Original Record: " + newRecord.convertString());
+        System.out.println("Normalized Record: " + normalizedNewRecord.convertString());
     }
 }
-
-

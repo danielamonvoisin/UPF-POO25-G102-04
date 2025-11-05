@@ -2,7 +2,7 @@ package Lab2;
 
 public class StandardizedDataset extends Dataset {
     private Vector meanInput;   
-    private Vector stdInput;    /
+    private Vector stdInput; 
     private double meanOutput;  
     private double stdOutput;   
 

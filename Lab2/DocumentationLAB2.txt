@@ -1,3 +1,5 @@
+Changes that later on the code we realised that would be better and more efficient: 
+
 In the public Vector method we thought of: 
     if (data.isEmpty()) { //se nos ha ocurrido después porque hay que checkear si el dataset no tiene ningún record
         return new Vector(dim, 0.0);
