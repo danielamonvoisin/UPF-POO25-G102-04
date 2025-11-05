@@ -1,12 +1,12 @@
 package Lab2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Dataset {
     private ArrayList<Record> data;
     private final int dim;
+
 
     public Dataset(int D) {
         if (D <= 0) {
@@ -29,6 +29,98 @@ public class Dataset {
             throw new IllegalArgumentException("Record input dimension must match dataset dimension");
         }
         this.data.add(record);
+    }
+
+    // START OF NORMALIZATION 
+
+    public Vector calculateMinInput() {
+    if (data.isEmpty()) {
+        return new Vector(dim, 0.0);
+    }
+    
+    double[] minValues = new double[dim];
+    for (int i = 0; i < dim; i++) {
+        minValues[i] = Double.MAX_VALUE;
+    }
+    
+    for (int i = 0; i < data.size(); i++) {
+        Record record = data.get(i);
+        double[] inputNumbers = record.getInput().getNumbers();
+        for (int j = 0; j < dim; j++) {
+            if (inputNumbers[j] < minValues[j]) {
+                minValues[j] = inputNumbers[j];
+            }
+        }
+    }
+    
+    return new Vector(minValues);
+}
+
+public Vector calculateMaxInput() {
+    if (data.isEmpty()) {
+        return new Vector(dim, 0.0);
+    }
+    
+    double[] maxValues = new double[dim];
+    for (int i = 0; i < dim; i++) {
+        maxValues[i] = Double.MIN_VALUE;
+    }
+    
+    for (int i = 0; i < data.size(); i++) {
+        Record record = data.get(i);
+        double[] inputNumbers = record.getInput().getNumbers();
+        for (int j = 0; j < dim; j++) {
+            if (inputNumbers[j] > maxValues[j]) {
+                maxValues[j] = inputNumbers[j];
+            }
+        }
+    }
+    
+    return new Vector(maxValues);
+}
+
+public double calculateMinOutput() {
+    if (data.isEmpty()) {
+        return 0.0;
+    }
+    
+    double minOutput = Double.MAX_VALUE;
+    for (int i = 0; i < data.size(); i++) {
+        Record record = data.get(i);
+        double output = record.getOutput();
+        if (output < minOutput) {
+            minOutput = output;
+        }
+    }
+    return minOutput;
+}
+
+public double calculateMaxOutput() {
+    if (data.isEmpty()) {
+        return 0.0;
+    }
+    
+    double maxOutput = Double.MIN_VALUE;
+    for (int i = 0; i < data.size(); i++) {
+        Record record = data.get(i);
+        double output = record.getOutput();
+        if (output > maxOutput) {
+            maxOutput = output;
+        }
+    }
+    return maxOutput;
+}
+
+    public NormalizedDataset normalize(){
+        Vector maxInput = this.calculateMaxInput(); 
+        Vector minInput = this.calculateMinInput();
+        double maxOutput = this.calculateMaxOutput(); 
+        double minOutput = this.calculateMinOutput();
+
+        NormalizedDataset normalized = new NormalizedDataset(this.getDim(), minInput, maxInput, minOutput, maxOutput); 
+        normalized.addNormalizedData(this); 
+        
+        return normalized; 
     }
 
     public Vector meanInput() {
@@ -91,96 +183,7 @@ public class Dataset {
         return Math.sqrt(variance);
     }
 
-    //NOW, WE ARE GOING TO IMPLEMENT NORMALIZED DATASET
-
-    public Vector minInput() {
-        if (data.isEmpty()) {
-            return new Vector(dim, 0.0);
-        }
-        
-        double[] minValues = new double[dim];
-        Arrays.fill(minValues, Double.MAX_VALUE);
-        
-        for (Record record : data) {
-            Vector input = record.getInput();
-            double[] inputValues = input.getNumbers();
-            for (int i = 0; i < dim; i++) {
-                if (inputValues[i] < minValues[i]) {
-                    minValues[i] = inputValues[i];
-                }
-            }
-        }
-        
-        return new Vector(minValues);
-    }
-
-    public Vector maxInput() {
-        if (data.isEmpty()) {
-            return new Vector(dim, 0.0);
-        }
-        
-        double[] maxValues = new double[dim];
-        Arrays.fill(maxValues, Double.MIN_VALUE);
-        
-        for (Record record : data) {
-            Vector input = record.getInput();
-            double[] inputValues = input.getNumbers();
-            for (int i = 0; i < dim; i++) {
-                if (inputValues[i] > maxValues[i]) {
-                    maxValues[i] = inputValues[i];
-                }
-            }
-        }
-        
-        return new Vector(maxValues);
-    }
-
-    public double minOutput() {
-        if (data.isEmpty()) {
-            return 0.0;
-        }
-        
-        double min = Double.MAX_VALUE;
-        for (Record record : data) {
-            if (record.getOutput() < min) {
-                min = record.getOutput();
-            }
-        }
-        return min;
-    }
-
-    public double maxOutput() {
-        if (data.isEmpty()) {
-            return 0.0;
-        }
-        
-        double max = Double.MIN_VALUE;
-        for (Record record : data) {
-            if (record.getOutput() > max) {
-                max = record.getOutput();
-            }
-        }
-        return max;
-    }
-
-    public NormalizedDataset normalize() {
-        Vector minIn = this.minInput();
-        Vector maxIn = this.maxInput();
-        double minOut = this.minOutput();
-        double maxOut = this.maxOutput();
-        
-        NormalizedDataset normalizedDb = new NormalizedDataset(
-            this.dim, minIn, maxIn, minOut, maxOut);
-        
-        for (Record record : this.data) {
-            Record transformedRecord = normalizedDb.transform(record);
-            normalizedDb.addRecord(transformedRecord);
-        }
-        
-        return normalizedDb;
-    }
-
-    //END OF NORMALIZED DATASET
+        // END OF NORMALIZATION 
 
 
     public StandardizedDataset standardize() {

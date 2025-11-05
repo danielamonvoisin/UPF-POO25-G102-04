@@ -6,7 +6,6 @@ public class TestDataset {
     
         Dataset dataset = new Dataset(2); // to crate a dataset with 2 dimensional vector types
         
-       
         dataset.addRecord(new Record(new Vector(new double[]{1.0, 2.0}), 3.0)); // using the addRecord method to the dataset
         dataset.addRecord(new Record(new Vector(new double[]{2.0, 3.0}), 4.0));
         dataset.addRecord(new Record(new Vector(new double[]{3.0, 4.0}), 5.0));
@@ -40,7 +39,7 @@ public class TestDataset {
         System.out.println("Transformed Record: " + transformed.convertString());
 
 
-        System.out.println("=== Testing Normalization ==="); // test normalization
+        System.out.println("Testing Normalization:"); // test normalization
         NormalizedDataset normalized = dataset.normalize();
         System.out.println("Normalized Dataset:");
         System.out.println(normalized);
@@ -48,10 +47,10 @@ public class TestDataset {
         System.out.println("Std Input (after normalization): " + normalized.stdInput().convertString());
         System.out.println("Mean Output (after normalization): " + normalized.meanOutput());
         System.out.println("Std Output (after normalization): " + normalized.stdOutput());
-        System.out.println("Min Input: " + dataset.minInput().convertString());
-        System.out.println("Max Input: " + dataset.maxInput().convertString());
-        System.out.println("Min Output: " + dataset.minOutput());
-        System.out.println("Max Output: " + dataset.maxOutput());
+        System.out.println("Min Input: " + dataset.calculateMinInput().convertString());
+        System.out.println("Max Input: " + dataset.calculateMaxInput().convertString());
+        System.out.println("Min Output: " + dataset.calculateMinOutput());
+        System.out.println("Max Output: " + dataset.calculateMaxOutput());
 
         Record normalizedNewRecord = normalized.transform(newRecord); // test transforming a new record using normalization parameters
         System.out.println("Normalization Transform Test:");
