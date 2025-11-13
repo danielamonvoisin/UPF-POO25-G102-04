@@ -1,0 +1,71 @@
+DOCUMENTATION LAB 3:
+
+The goal of this lab was to build a linear regression model from the ground up using gradient descent. 
+We structured our code like a real-world machine learning library, focusing on clean, modular design.
+
+
+In the implementation of Lab 3, we applied several core object-oriented programing principles that we have seen in class such 
+as Encapsulation, Reuse of methods and efficiency. 
+
+
+1. Model class:
+
+Of course it will reuse the constructor of Vector class to initialize dthe vector attribute in the model class. 
+
+In order to compute the final predicted output using the parameters vector in the model class we applied directly the method 
+defined in the vector class (DotProduct) in order to perform the prediction. 
+
+Finally the update method uses the getter methods from the Vector class, letting us manipulate the hidden data without breaking
+encapsulation.
+
+
+2. Algorithm class:
+
+This class performs reuse property by reusing the Dataset class, since the method gradient() retrieves the list of records by 
+calling: List<Record> records = dataset.getData();
+
+And it also uses dataset.getDim() in the solve() method to automatically adapt the model’s parameter size to the dataset 
+dimensionality, enhancing modularity and flexibility.
+
+Reusing the Record class: each Record provides structured access to both inputs and outputs:
+record.getInput()
+record.getOutput()
+
+More efficient and reuses the code so avoids direct handling of raw arrays and leverages encapsulation from the Record class.
+And the same idea of this reusing is applied thorought the code in Algorithm class. 
+
+3. SupervisedLearner class: 
+
+Reusing the Algorithm class: 
+this.model = this.algorithm.solve(this.dataset);
+This line reuses the entire gradient descent procedure already defined in Algorithm. The SupervisedLearner does not need to 
+handle optimization logic, it simply calls the method.
+
+Reusing the Dataset class:
+int dimension = d.getDim();
+this.model = new Model(dimension + 1);
+By calling getDim(), it automatically adapts to any dataset structure, illustrating flexible and reusable design.
+
+Reusing the Model class: 
+return this.model.predict(augmented);
+which leverages the model’s existing prediction mechanism based on its parameters.
+
+Reusing the Vector class: 
+Vector augmented = x.augment();
+This avoids reimplementing input preprocessing logic.
+
+
+Finally, composition:
+
+The class is built entirely through composition, which means it has an Algorithm (optimizes), has a Dataset (manages data), 
+and has a Model (predicts).
+
+This division of tasks makes the system modular and supports code reuse at every level.
+
+
+So, to conclude, the SupervisedLearner class doesn’t redefine any algorithms, data structures, or mathematical operations.
+Instead, it reuses existing functionality, showing a clear example of high-level abstraction and composition-based reuse.
+
+
+At the end of this lab, we tried to do the Optional: Moore-Penrose inverse, but while trying to do so, we realized it was too 
+difficult/complex (mainly because it involved external libraries for matrix computation) so we decided to not do it.
