@@ -1,0 +1,5 @@
+Documentation: 
+
+
+
+the errorlis[] we decided to computed individually to make things clearer

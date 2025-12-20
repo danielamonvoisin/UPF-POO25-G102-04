@@ -1,24 +1,18 @@
-package Lab3;
+package Lab4;
+
 import java.util.List;
 
-
-public class Algorithm {
-    public double learningRate;
-    private double stoppingCriterion; 
-
-
-    public Algorithm(double lr, double sc){
-        this.learningRate = lr; 
+public class GradientDescent extends Algorithm {
+    private double stoppingCriterion;
+     
+     
+    public GradientDescent(double sc, double lr){
+        super(lr); 
         this.stoppingCriterion = sc; 
-    }
-
-    public void setLearningRate(double val){ // a constructor to set the learning rate.
-        this.learningRate = val; 
-    }
+     } 
 
     public Vector gradient(Dataset dataset, Model model){
-
-         List<Record> records= dataset.getData(); // extracting the list of all records in the dataset. 
+        List<Record> records= dataset.getData(); // extracting the list of all records in the dataset. 
     
         // first we calulate the error for each record in the dataset: 
         double[] errorlist = new double[records.size()]; // error per record
@@ -43,6 +37,8 @@ public class Algorithm {
         return gradient; 
     }
 
+
+    @Override
     public Model solve(Dataset dataset){
         Model model = new Model(dataset.getDim() + 1); 
         Boolean bool = true; 

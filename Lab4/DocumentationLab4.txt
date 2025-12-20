@@ -1,0 +1,35 @@
+
+An optimization we used with respect from the previous Lab: 
+
+Optiimization done in Stochastic Gradient Descent in comparison woht the passed Gradient Descen code: 
+
+
+before: (applying the same implementation we implemented in the gradient descent code)
+        //get the error list: 
+        double[] errorlist = new double[sizer]; // error per record
+        int i = 0; 
+        for( Record record : miniBatch){ // CHANGE ! --> iterate through the miniBatch ArrayList not through all the dataset. 
+            errorlist[i] = model.getParams().DotProduct(record.getInput().augment()) - record.getOutput(); 
+            i++;  
+        }
+
+        // Multiply the augmented input vector by its scalar error to obtain each gradient
+        Vector gradientSUM = new Vector(model.getParams().getDimension(), 0); // equally to say the dimension of input + 1. 
+        int j = 0; 
+        for(Record record : miniBatch){ // CHANGE ! --> iterate through the miniBatch ArrayList not through all the dataset.
+            Vector InputAugmented = record.getInput().augment(); 
+            Vector gradient_i = InputAugmented.MultiplyScalar(errorlist[j]); 
+            gradientSUM = gradientSUM.add(gradient_i); 
+            j++;  
+        }
+
+After: (more optimized code, unnecessarily we created an error list array when we can directly compute it in the for loop )
+
+Vector gradientSUM = new Vector(model.getParams().getDimension(), 0);
+for (Record record : miniBatch) { CHANGE ! --> iterate through the miniBatch ArrayList not through all the dataset. 
+    Vector InputAugmented = record.getInput().augment();
+    double error = model.getParams().DotProduct(InputAugmented) - record.getOutput();
+    Vector gradient_i = InputAugmented.MultiplyScalar(error);
+    gradientSUM = gradientSUM.add(gradient_i);
+}
+Vector gradient = gradientSUM.DivideScalar(sizer);
