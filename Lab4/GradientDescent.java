@@ -55,4 +55,8 @@ public class GradientDescent extends Algorithm {
         return model; 
     }
     
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d14547db7915512697433b1c916429cee341a249

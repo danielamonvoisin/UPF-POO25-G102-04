@@ -7,8 +7,8 @@ public class SupervisedLearner {
     private Dataset dataset; 
     private Model model; // at the beggining there is no model 
 
-    public SupervisedLearner(Algorithm a, Dataset d){ // we do not pass yet the model because is what the algotrithm is goign to learn!
-                                                        // so it creates a default model internally, with all zeros as parameters (later we can updtaed it)
+    public SupervisedLearner(Algorithm a, Dataset d){ /*we do not pass yet the model because is what the algotrithm is goign to learn!
+        so it creates a default model internally, with all zeros as parameters (later we can updtaed it) */
         this.algorithm = a;
         this.dataset = d; 
         int dimension = d.getDim(); 

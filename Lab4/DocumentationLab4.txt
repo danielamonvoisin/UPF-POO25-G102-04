@@ -1,4 +1,3 @@
-
 An optimization we used with respect from the previous Lab: 
 
 Optiimization done in Stochastic Gradient Descent in comparison woht the passed Gradient Descen code: 

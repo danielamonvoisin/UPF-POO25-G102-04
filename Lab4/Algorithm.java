@@ -1,6 +1,5 @@
 package Lab4;
 
-
 public abstract class Algorithm {
     public double learningRate;
 
